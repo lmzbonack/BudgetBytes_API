@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(BASE_DIR)) # add this line
 
 
 # Quick-start development settings - unsuitable for production
@@ -30,15 +32,28 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+)
+
+
+THIRD_PARTY_APPS = (
+    'rest_framework',  # Django Rest Framework
+)
+
+LOCAL_APPS = (
+    # Use explicit path
+    # 'traveladvance.apples.apps.ApplesConfig', # Example custom apples app
+    # Your stuff: custom apps go here
     'recipes.apps.RecipesConfig',
-]
+)
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -49,11 +64,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-THIRD_PARTY_APPS = (
-    'rest_framework',  # Django Rest Framework
-)
-
 
 ROOT_URLCONF = 'byteapi.urls'
 
