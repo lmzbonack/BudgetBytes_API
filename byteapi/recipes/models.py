@@ -2,9 +2,6 @@ from django.db import models
 from model_utils.models import TimeStampedModel
 
 # Create your models here.
-# Name, Ingredients, Instructions, 
-# Prep Time, Cook Time, image_url, 
-# keywords, author
 
 class Recipe(TimeStampedModel):
     """Fields for recipe model"""
