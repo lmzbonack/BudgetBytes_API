@@ -20,6 +20,6 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    url(r'^api/recipes/', include('recipes.urls'), name='recipes'),
+    url(r'^api/', include('recipes.urls'), name='recipes'),
     path('admin/', admin.site.urls)
 ]

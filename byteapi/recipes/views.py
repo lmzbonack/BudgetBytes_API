@@ -1,14 +1,13 @@
 """Recipe endpoint views"""
 
-from rest_framework import viewsets
+from rest_framework import generics, filters
 
 from .models import Recipe
 from .serializers import RecipeSerializer
 
-class RecipesViewSet(viewsets.ModelViewSet):
+class RecipesViewSet(generics.ListCreateAPIView):
     """View set for Pending Documents"""
-
+    search_fields = ['name', 'ingredients']
+    filter_backends = (filters.SearchFilter,)
+    queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
-
-    def get_queryset(self):
-        return Recipe.objects.all().order_by('modified')
