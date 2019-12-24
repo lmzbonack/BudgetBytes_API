@@ -5,7 +5,7 @@ description = ""
 authors = ["Luc Zbonack <lmzbonack@email.arizona.edu>"]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.7.4"
 beautifulsoup4 = "^4.8"
 requests = "^2.22"
 django = "^2.2"
