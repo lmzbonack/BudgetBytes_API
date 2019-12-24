@@ -18,3 +18,6 @@ class Recipe(TimeStampedModel):
     keywords = models.TextField(null=True)
     author = models.CharField(null=True,
                              max_length=100)
+
+    def __str__(self):
+        return self.name
