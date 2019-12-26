@@ -5,8 +5,8 @@ from model_utils.models import TimeStampedModel
 
 class Recipe(TimeStampedModel):
     """Fields for recipe model"""
-    name = models.CharField(null=True,
-                            max_length=30)
+    name = models.CharField(max_length=30,
+                            primary_key=True)
     ingredients = models.TextField(null=True)
     instructions = models.TextField(null=True)
     prep_time = models.CharField(null=True,

@@ -44,9 +44,6 @@ class BudgetByteScraper:
             next_page_url = next_page_url['href']
             self.count += 1
 
-        print(self.count)
-        print(len(self.recipe_list))
-
     def export_recipe_to_app(self, recipe_url):
         recipe_page =requests.get(recipe_url)
         soup = BeautifulSoup(recipe_page.content, 'html.parser')
@@ -82,22 +79,36 @@ class BudgetByteScraper:
         else:
             keywords_django = keywords.text
 
+        # Handle case of some recipes not having an author
         if author == None:
             author_django = ''
         else:
             author_django = author.text
+        
+        if 'data-lazy-src' in image:
+            image_url_django = image['data-lazy-src']
+        else:
+            image_url_django = None
 
-        Recipe.objects.create(
+        Recipe.objects.get_or_create(
             name=name.text,
             ingredients=':'.join(ingredients_list),
             instructions=':'.join(instructions_list),
             prep_time=times[0].text,
             cook_time=times[1].text,
-            image_url=image['data-lazy-src'],
+            image_url=image_url_django,
             keywords=keywords_django,
             author=author_django,
         )
-    
+
+        # id = 'some identifier'
+        # person, created = Person.objects.get_or_create(identifier=id)
+
+        # if created:
+        #    # means you have created a new person
+        # else:
+        #    # person just refers to the existing one
+            
     def scrape_em_all(self):
         self.populate_recipe_list()
         count = 0
@@ -110,6 +121,6 @@ class BudgetByteScraper:
         print("{} Recipes imported".format(count))
 
 
-imp = BudgetByteScraper()
+# imp = BudgetByteScraper()
 
-imp.scrape_em_all()
+# imp.scrape_em_all()
